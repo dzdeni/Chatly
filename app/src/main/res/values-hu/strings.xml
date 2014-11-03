@@ -3,8 +3,17 @@
 
     <string name="app_name">Chatly</string>
     <string name="hello_world">Hello világ!</string>
-    <string name="action_about">Névjegy</string>
+
+    <!-- LoginActivity -->
+    <string name="title_activity_login">Bejelentkezés</string>
+    <string name="login_username">Felhasználónév</string>
+    <string name="login_password">Jelszó</string>
+    <string name="login_remember">Jegyezz meg</string>
+    <string name="login_empty_fields">Adja meg a felhasználónevét és jelszavát.</string>
+    <string name="login_wrong_username_or_password">Rossz felhasználónév vagy jelszó.</string>
+
+    <!-- Settings -->
     <string name="action_settings">Beállítások</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="action_about">About</string>
 
 </resources>

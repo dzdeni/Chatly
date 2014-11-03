@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <color name="background">@color/blue_grey_800</color>
+
     <color name="online_green">#259b24</color>
     <color name="text_gray">#646464</color>
     <color name="bg_gray">#f6f6f6</color>

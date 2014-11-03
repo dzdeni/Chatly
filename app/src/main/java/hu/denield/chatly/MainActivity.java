@@ -2,6 +2,7 @@ package hu.denield.chatly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -24,12 +25,9 @@ public class MainActivity extends BaseActivity {
             password = getIntent().getStringExtra(Extras.PASSWORD);
         }
 
-        if (!validateUser(username, password)) {
-            Intent loginIntent = new Intent(this, LoginActivity.class);
-            startActivity(loginIntent);
-            finish();
-            return;
-        }
+        if (!validateUser(username, password)) return;
+
+        Log.i("test", "teszt");
 
     }
 
@@ -62,10 +60,15 @@ public class MainActivity extends BaseActivity {
     }
 
     public boolean validateUser(String username, String password) {
-        if (username == null || password == null) return false;
-        if (username.equals("admin") && password.equals("nimda")) {
-            return true;
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        if (username != null && password != null) {
+            if (username.equals("admin") && password.equals("nimda")) {
+                return true;
+            }
+            loginIntent.putExtra(Extras.ERROR, getString(R.string.login_wrong_username_or_password));
         }
+        startActivity(loginIntent);
+        finish();
         return false;
     }
 }

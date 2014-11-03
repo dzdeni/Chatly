@@ -19,38 +19,49 @@
         <EditText
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:id="@+id/edit_text_username"
+            android:id="@+id/login_username"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:hint="Username"/>
+            android:hint="@string/login_username"/>
 
         <EditText
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/edit_text_password"
+            android:id="@+id/login_password"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
-            android:hint="Password"/>
+            android:hint="@string/login_password"/>
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remember"
+            android:text="@string/login_remember"
             android:id="@+id/check_box_remember"
             android:textSize="14sp"/>
 
         <Button
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:id="@+id/loginButton"
+            android:text="@string/title_activity_login"
+            android:id="@+id/login_button"
             android:onClick="loginOnClick"
             android:background="@color/blue_300"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/grey_white_1000" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/login_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linearLayout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/red_400"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"/>
 
 </RelativeLayout>

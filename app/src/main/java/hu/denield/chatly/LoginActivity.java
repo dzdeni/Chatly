@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import hu.denield.chatly.contants.Extras;
@@ -15,13 +16,23 @@ public class LoginActivity extends BaseActivity {
 
     private EditText username;
     private EditText password;
+    private TextView error;
+    private String errorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        username = (EditText) findViewById(R.id.edit_text_username);
-        password = (EditText) findViewById(R.id.edit_text_password);
+        if (savedInstanceState == null) {
+            errorText = getIntent().getStringExtra(Extras.ERROR);
+        }
+
+        username = (EditText) findViewById(R.id.login_username);
+        password = (EditText) findViewById(R.id.login_password);
+        error =  (TextView) findViewById(R.id.login_error);
+        if (errorText != null) {
+            error.setText(errorText);
+        }
     }
 
     @Override
@@ -54,10 +65,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void loginOnClick(View view) {
-        Intent loginIntent = new Intent(this, MainActivity.class);
-        loginIntent.putExtra(Extras.USERNAME, username.getText().toString());
-        loginIntent.putExtra(Extras.PASSWORD, password.getText().toString());
-        startActivity(loginIntent);
-        finish();
+        if ((!username.getText().toString().trim().equals("")) && (!password.getText().toString().trim().equals(""))) {
+            Intent loginIntent = new Intent(this, MainActivity.class);
+            loginIntent.putExtra(Extras.USERNAME, username.getText().toString());
+            loginIntent.putExtra(Extras.PASSWORD, password.getText().toString());
+            startActivity(loginIntent);
+            finish();
+        } else {
+            Toast.makeText(this, getString(R.string.login_empty_fields), Toast.LENGTH_SHORT).show();
+        }
     }
 }
