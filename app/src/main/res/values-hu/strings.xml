@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Chatly</string>
+    <string name="hello_world">Hello világ!</string>
+    <string name="action_about">Névjegy</string>
+    <string name="action_settings">Beállítások</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+</resources>
