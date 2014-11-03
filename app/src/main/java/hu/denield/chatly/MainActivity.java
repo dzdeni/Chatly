@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import hu.denield.chatly.adapter.MessageListAdapter;
 import hu.denield.chatly.contants.Extras;
+import hu.denield.chatly.data.MessageDataManager;
 
 public class MainActivity extends BaseActivity {
 
-    private boolean logged = false;
-
     private String username;
     private String password;
+
+    private EditText messageInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +29,16 @@ public class MainActivity extends BaseActivity {
             password = getIntent().getStringExtra(Extras.PASSWORD);
         }
 
+        //TODO: auto login
         if (!validateUser(username, password)) return;
 
-        Log.i("test", "teszt");
+        //Load the view from the inflated layout
+        ListView listView = (ListView) findViewById(R.id.listview_messages);
+
+        //Set and create the adapter
+        listView.setAdapter(new MessageListAdapter(this, MessageDataManager.getInstance().getUsers()));
+
+        messageInput = (EditText) findViewById(R.id.chat_message_input);
 
     }
 
@@ -70,5 +81,11 @@ public class MainActivity extends BaseActivity {
         startActivity(loginIntent);
         finish();
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 }
