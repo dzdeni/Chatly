@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 import hu.denield.chatly.R;
 import hu.denield.chatly.data.MessageData;
+import hu.denield.chatly.utils.Time;
 
 public class MessageListAdapter extends BaseAdapter {
     private List<MessageData> messages;
@@ -37,6 +39,7 @@ public class MessageListAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        TextView timeTextView;
         TextView messageTextView;
         TextView usernameTextView;
     }
@@ -51,6 +54,7 @@ public class MessageListAdapter extends BaseAdapter {
 
             // well set up the ViewHolder
             viewHolder = new ViewHolder();
+            viewHolder.timeTextView = (TextView) convertView.findViewById(R.id.chat_time);
             viewHolder.messageTextView = (TextView) convertView.findViewById(R.id.chat_message);
             viewHolder.usernameTextView = (TextView) convertView.findViewById(R.id.chat_username);
 
@@ -65,8 +69,9 @@ public class MessageListAdapter extends BaseAdapter {
 
         MessageData currentMessage = messages.get(i);
 
+        viewHolder.timeTextView.setText(Time.getTime(currentMessage.getTime()));
         viewHolder.messageTextView.setText(currentMessage.getMessage());
-        viewHolder.usernameTextView.setText(currentMessage.getTime() +" "+currentMessage.getUsername());
+        viewHolder.usernameTextView.setText(currentMessage.getUsername());
 
         return convertView;
     }

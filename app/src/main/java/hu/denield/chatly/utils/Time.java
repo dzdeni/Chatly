@@ -9,7 +9,14 @@ public class Time {
     public static String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(time);
-        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        String date = DateFormat.format("yyyy.MM.dd", cal).toString();
+        return date;
+    }
+
+    public static String getTime(long time) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(time);
+        String date = DateFormat.format("HH:mm:ss", cal).toString();
         return date;
     }
 }

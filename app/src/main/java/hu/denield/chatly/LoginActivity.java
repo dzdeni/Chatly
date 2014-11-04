@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,24 +15,27 @@ import hu.denield.chatly.contants.Extras;
 
 public class LoginActivity extends BaseActivity {
 
-    private EditText username;
-    private EditText password;
-    private TextView error;
-    private String errorText;
+    private EditText mUsername;
+    private EditText mPassword;
+    private TextView mError;
+    private CheckBox mRemember;
+    private String mErrorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            errorText = getIntent().getStringExtra(Extras.ERROR);
+            mErrorText = getIntent().getStringExtra(Extras.ERROR);
         }
 
-        username = (EditText) findViewById(R.id.login_username);
-        password = (EditText) findViewById(R.id.login_password);
-        error =  (TextView) findViewById(R.id.login_error);
-        if (errorText != null) {
-            error.setText(errorText);
+        mUsername = (EditText) findViewById(R.id.login_username);
+        mPassword = (EditText) findViewById(R.id.login_password);
+        mRemember = (CheckBox) findViewById(R.id.check_box_remember);
+        mError =  (TextView) findViewById(R.id.login_error);
+
+        if (mErrorText != null) {
+            mError.setText(mErrorText);
         }
     }
 
@@ -65,10 +69,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void loginOnClick(View view) {
-        if ((!username.getText().toString().trim().equals("")) && (!password.getText().toString().trim().equals(""))) {
+        if ((!mUsername.getText().toString().trim().equals("")) && (!mPassword.getText().toString().trim().equals(""))) {
             Intent loginIntent = new Intent(this, MainActivity.class);
-            loginIntent.putExtra(Extras.USERNAME, username.getText().toString());
-            loginIntent.putExtra(Extras.PASSWORD, password.getText().toString());
+            loginIntent.putExtra(Extras.USERNAME, mUsername.getText().toString());
+            loginIntent.putExtra(Extras.PASSWORD, mPassword.getText().toString());
+            loginIntent.putExtra(Extras.REMEMBER, mRemember.isChecked());
             startActivity(loginIntent);
             finish();
         } else {

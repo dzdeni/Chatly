@@ -15,5 +15,9 @@
     <!-- Settings -->
     <string name="action_settings">Beállítások</string>
     <string name="action_about">About</string>
+    <string name="action_logout">Kijelentkezés</string>
+
+    <!-- Main -->
+    <string name="chat_message_input_hint">Írd be az üzenetet.</string>
 
 </resources>
