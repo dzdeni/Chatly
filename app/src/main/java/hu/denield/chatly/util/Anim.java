@@ -1,4 +1,4 @@
-package hu.denield.chatly.utils;
+package hu.denield.chatly.util;
 
 import android.content.Context;
 import android.view.View;

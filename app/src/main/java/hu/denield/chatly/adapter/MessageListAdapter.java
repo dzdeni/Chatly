@@ -12,7 +12,7 @@ import java.util.List;
 
 import hu.denield.chatly.R;
 import hu.denield.chatly.data.MessageData;
-import hu.denield.chatly.utils.Time;
+import hu.denield.chatly.util.Time;
 
 public class MessageListAdapter extends BaseAdapter {
     private List<MessageData> messages;

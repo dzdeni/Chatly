@@ -4,6 +4,10 @@
     <string name="app_name">Chatly</string>
     <string name="hello_world">Hello world!</string>
 
+    <!-- Drawer -->
+    <string name="drawer_open">@string/app_name</string>
+    <string name="drawer_close">{room}</string>
+
     <!-- LoginActivity -->
     <string name="title_activity_login">Login</string>
     <string name="login_username">Username</string>

@@ -1,4 +1,4 @@
-package hu.denield.chatly.contants;
+package hu.denield.chatly.contant;
 
 public class SharedPrefs {
     public static final String USERNAME = "username";
