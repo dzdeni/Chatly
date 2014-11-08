@@ -37,8 +37,6 @@
             android:layout_marginBottom="10dp"
             android:hint="@string/login_password"/>
 
-
-
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -49,11 +47,12 @@
             <com.gc.materialdesign.views.CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/check_box_remember"
+                android:id="@+id/login_check_box_remember"
                 android:background="@color/background"
                 materialdesign:check="false" />
 
             <TextView
+                android:id="@+id/login_checkbox_remember_text"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:gravity="center"

@@ -18,6 +18,7 @@ public class LoginActivity extends BaseActivity {
     private EditText mUsername;
     private EditText mPassword;
     private TextView mError;
+    private TextView mCheckBoxTextView;
     private CheckBox mRemember;
     private String mErrorText;
 
@@ -29,21 +30,32 @@ public class LoginActivity extends BaseActivity {
             mErrorText = getIntent().getStringExtra(Extras.ERROR);
         }
 
+        // get the views
         mUsername = (EditText) findViewById(R.id.login_username);
         mPassword = (EditText) findViewById(R.id.login_password);
-        mRemember = (CheckBox) findViewById(R.id.check_box_remember);
+        mRemember = (CheckBox) findViewById(R.id.login_check_box_remember);
         mError =  (TextView) findViewById(R.id.login_error);
+        mCheckBoxTextView = (TextView) findViewById(R.id.login_checkbox_remember_text);
 
+        // if there is an error message, write it to the user
         if (mErrorText != null) {
             mError.setText(mErrorText);
         }
+
+        // toggle the checkbox by its text
+        mCheckBoxTextView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mRemember.setChecked(!mRemember.isCheck());
+            }
+        });
     }
 
     @Override
     protected int getLayoutResource() {
         return R.layout.activity_login;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

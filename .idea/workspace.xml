@@ -62,14 +62,14 @@
       <file leaf-file-name="activity_main.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6514599" vertical-offset="595" max-vertical-offset="1547">
-              <caret line="56" column="48" selection-start-line="56" selection-start-column="48" selection-end-line="56" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.46532845" vertical-offset="578" max-vertical-offset="1530">
+              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding>
                 <element signature="e#457#492#0" expanded="true" />
                 <element signature="e#522#557#0" expanded="true" />
                 <element signature="e#585#618#0" expanded="true" />
                 <element signature="e#649#682#0" expanded="true" />
-                <element signature="e#2399#2432#0" expanded="true" />
+                <element signature="e#2350#2383#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -81,19 +81,15 @@
       <file leaf-file-name="LoginActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1479">
-              <caret line="8" column="30" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2230" max-vertical-offset="2805">
-              <caret line="178" column="45" selection-start-line="178" selection-start-column="45" selection-end-line="178" selection-end-column="45" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1108" max-vertical-offset="1683">
+              <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1452#1629#0" expanded="true" />
+                <element signature="e#1618#1619#0" expanded="true" />
+                <element signature="e#2407#2439#0" expanded="true" />
+                <element signature="e#3147#3185#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,13 +97,23 @@
       <file leaf-file-name="activity_login.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-34.0" vertical-offset="0" max-vertical-offset="1581">
-              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+            <state vertical-scroll-proportion="-4.690909" vertical-offset="660" max-vertical-offset="1564">
+              <caret line="54" column="57" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
               <folding />
             </state>
           </provider>
           <provider editor-type-id="android-designer">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="598" max-vertical-offset="2805">
+              <caret line="86" column="78" selection-start-line="86" selection-start-column="78" selection-end-line="86" selection-end-column="78" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -1357,10 +1363,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/utils/Anim.java" />
         <option value="$PROJECT_DIR$/materialDesign/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
       </list>
     </option>
@@ -1829,7 +1835,7 @@
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="0301f3ef093b0a67" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="08fdc52f" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../MaterialDesignDemo" />
     <property name="FullScreen" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
@@ -2442,14 +2448,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1479">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.59130436" vertical-offset="0" max-vertical-offset="575">
@@ -2468,16 +2466,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2230" max-vertical-offset="2805">
-          <caret line="178" column="45" selection-start-line="178" selection-start-column="45" selection-end-line="178" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="598" max-vertical-offset="2805">
+          <caret line="86" column="78" selection-start-line="86" selection-start-column="78" selection-end-line="86" selection-end-column="78" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-34.0" vertical-offset="0" max-vertical-offset="1581">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state vertical-scroll-proportion="-4.690909" vertical-offset="660" max-vertical-offset="1564">
+          <caret line="54" column="57" selection-start-line="54" selection-start-column="57" selection-end-line="54" selection-end-column="57" />
           <folding />
         </state>
       </provider>
@@ -2485,16 +2483,30 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1108" max-vertical-offset="1683">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1452#1629#0" expanded="true" />
+            <element signature="e#1618#1619#0" expanded="true" />
+            <element signature="e#2407#2439#0" expanded="true" />
+            <element signature="e#3147#3185#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6514599" vertical-offset="595" max-vertical-offset="1547">
-          <caret line="56" column="48" selection-start-line="56" selection-start-column="48" selection-end-line="56" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.46532845" vertical-offset="578" max-vertical-offset="1530">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
             <element signature="e#457#492#0" expanded="true" />
             <element signature="e#522#557#0" expanded="true" />
             <element signature="e#585#618#0" expanded="true" />
             <element signature="e#649#682#0" expanded="true" />
-            <element signature="e#2399#2432#0" expanded="true" />
+            <element signature="e#2350#2383#0" expanded="true" />
           </folding>
         </state>
       </provider>
