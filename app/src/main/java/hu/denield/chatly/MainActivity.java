@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.ButtonFloat;
+
 import hu.denield.chatly.adapter.MessageListAdapter;
 import hu.denield.chatly.contants.Extras;
 import hu.denield.chatly.contants.SharedPrefs;
@@ -39,7 +41,7 @@ public class MainActivity extends BaseActivity {
     private boolean remember;
 
     private TextView usernameTextView;
-    private ImageButton newMessage;
+    private ButtonFloat newMessage;
     private EditText messageInput;
     private RelativeLayout messageInputLayout;
 
@@ -82,7 +84,7 @@ public class MainActivity extends BaseActivity {
         usernameTextView = (TextView) findViewById(R.id.chat_username);
         messageInputLayout = (RelativeLayout) findViewById(R.id.chat_input_layout);
         messageInput = (EditText) findViewById(R.id.chat_message_input);
-        newMessage = (ImageButton) findViewById(R.id.chat_button_new_message);
+        newMessage = (ButtonFloat) findViewById(R.id.chat_button_new_message);
 
         usernameTextView.setText(username +": ");
         //messageInputLayout.setVisibility(View.GONE);

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
+import com.gc.materialdesign.views.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,7 +73,7 @@ public class LoginActivity extends BaseActivity {
             Intent loginIntent = new Intent(this, MainActivity.class);
             loginIntent.putExtra(Extras.USERNAME, mUsername.getText().toString());
             loginIntent.putExtra(Extras.PASSWORD, mPassword.getText().toString());
-            loginIntent.putExtra(Extras.REMEMBER, mRemember.isChecked());
+            loginIntent.putExtra(Extras.REMEMBER, mRemember.isCheck());
             startActivity(loginIntent);
             finish();
         } else {
