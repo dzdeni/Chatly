@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
@@ -108,7 +109,7 @@ public class MainActivity extends BaseActivity {
         ) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle("#default");
+                getSupportActionBar().setTitle(getString(R.string.app_name) + ": #default");
                 supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
@@ -118,7 +119,11 @@ public class MainActivity extends BaseActivity {
                 supportInvalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
+
+        // drawer settings
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        getSupportActionBar().setTitle(getString(R.string.app_name) + ": #default");
     }
 
     @Override

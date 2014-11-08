@@ -52,15 +52,13 @@
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="{Username}"
                         android:id="@+id/chat_username"
-                        android:layout_marginRight="10dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentRight="true"/>
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_centerInParent="true"
                         android:id="@+id/chat_message_input"
                         android:layout_toLeftOf="@+id/chat_button_send"
                         android:layout_toRightOf="@+id/chat_username"
