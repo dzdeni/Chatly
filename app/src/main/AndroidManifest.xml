@@ -19,6 +19,11 @@
             android:name="hu.denield.chatly.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name="hu.denield.chatly.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@
     <string name="login_wrong_username_or_password">Rossz felhasználónév vagy jelszó.</string>
 
     <!-- Settings -->
+    <string name="title_activity_settings">Beállítások</string>
     <string name="action_settings">Beállítások</string>
     <string name="action_about">About</string>
     <string name="action_logout">Kijelentkezés</string>

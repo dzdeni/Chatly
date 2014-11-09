@@ -57,6 +57,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         mSp = this.getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
 
         // Fresh start
@@ -146,6 +149,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_main;
+    }
+
+    @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState.getParcelable(MESSAGES) != null) {
             mMessageListView.onRestoreInstanceState(savedInstanceState.getParcelable(MESSAGES));
@@ -168,11 +176,6 @@ public class MainActivity extends BaseActivity {
         savedInstanceState.putString(CHAT_INPUT, mMessageInputText.getText().toString());
         savedInstanceState.putBoolean(CHAT_INPUT_STATE, (mMessageInputLayout.getVisibility() == View.VISIBLE)?true:false);
         savedInstanceState.putBoolean(NAVIGATION_DRAWER_STATE, mDrawerLayout.isDrawerOpen(GravityCompat.START));
-    }
-
-    @Override
-    protected int getLayoutResource() {
-        return R.layout.activity_main;
     }
 
     @Override
@@ -202,7 +205,8 @@ public class MainActivity extends BaseActivity {
 
         switch (id) {
             case R.id.action_settings:
-                Toast.makeText(this, getString(R.string.action_settings), Toast.LENGTH_SHORT).show();
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 return true;
             case R.id.action_logout:
                 SharedPreferences.Editor editor = mSp.edit();
