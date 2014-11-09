@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFloat;
+import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
+import com.nhaarman.listviewanimations.appearance.simple.SwingRightInAnimationAdapter;
 
 import hu.denield.chatly.adapter.MessageListAdapter;
 import hu.denield.chatly.contant.Extras;
@@ -32,18 +34,21 @@ public class MainActivity extends BaseActivity {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public static final String MESSAGES = "messages";
+    public static final String CHAT_INPUT = "chatInput";
+    public static final String CHAT_INPUT_STATE = "chatInputState";
+    public static final String NAVIGATION_DRAWER_STATE = "navigationDrawerState";
 
     private SharedPreferences mSp;
     private ListView mMessageListView;
-    private MessageListAdapter mMessageListAdapter;
+    private AnimationAdapter mMessageListAdapter;
 
-    private String username;
-    private String password;
-    private boolean remember;
+    private String mUsername;
+    private String mPassword;
+    private boolean mRemember;
 
     private TextView mUsernameTextView;
-    private ButtonFloat mNewMessage;
-    private EditText mMessageInput;
+    private ButtonFloat mNewMessageButton;
+    private EditText mMessageInputText;
     private RelativeLayout mMessageInputLayout;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -58,27 +63,28 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) {
             if (getIntent().getExtras() != null) {
                 // Trying to login
-                username = getIntent().getStringExtra(Extras.USERNAME);
-                password = getIntent().getStringExtra(Extras.PASSWORD);
-                remember = getIntent().getBooleanExtra(Extras.REMEMBER, false);
+                mUsername = getIntent().getStringExtra(Extras.USERNAME);
+                mPassword = getIntent().getStringExtra(Extras.PASSWORD);
+                mRemember = getIntent().getBooleanExtra(Extras.REMEMBER, false);
             } else {
                 // Trying to get login from SharedPreferences
-                username = mSp.getString(SharedPrefs.USERNAME, null);
-                password = mSp.getString(SharedPrefs.PASSWORD, null);
+                mUsername = mSp.getString(SharedPrefs.USERNAME, null);
+                mPassword = mSp.getString(SharedPrefs.PASSWORD, null);
             }
         } else {
             // Trying to login from savedInstanceState
-            username = savedInstanceState.getString(USERNAME);
-            password = savedInstanceState.getString(PASSWORD);
+            mUsername = savedInstanceState.getString(USERNAME);
+            mPassword = savedInstanceState.getString(PASSWORD);
         }
 
-        if (!validateUser(username, password)) return;
+        // Validate the user
+        if (!validateUser(mUsername, mPassword)) return;
 
         // Save the login credentials for further use (next login)
-        if (remember) {
+        if (mRemember) {
             SharedPreferences.Editor editor = mSp.edit();
-            editor.putString(SharedPrefs.USERNAME, username);
-            editor.putString(SharedPrefs.PASSWORD, password);
+            editor.putString(SharedPrefs.USERNAME, mUsername);
+            editor.putString(SharedPrefs.PASSWORD, mPassword);
             editor.apply();
         }
 
@@ -86,20 +92,28 @@ public class MainActivity extends BaseActivity {
         mMessageListView = (ListView) findViewById(R.id.listview_messages);
         mUsernameTextView = (TextView) findViewById(R.id.chat_username);
         mMessageInputLayout = (RelativeLayout) findViewById(R.id.chat_input_layout);
-        mMessageInput = (EditText) findViewById(R.id.chat_message_input);
-        mNewMessage = (ButtonFloat) findViewById(R.id.chat_button_new_message);
+        mMessageInputText = (EditText) findViewById(R.id.chat_message_input);
+        mNewMessageButton = (ButtonFloat) findViewById(R.id.chat_button_new_message);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Load the view from the inflated layout to local variables and do some things with them
         TextView drawerUsernameTextView = (TextView) findViewById(R.id.drawer_username);
-        drawerUsernameTextView.setText(username);
+        drawerUsernameTextView.setText(mUsername);
 
-        mUsernameTextView.setText(username + ": ");
+        mUsernameTextView.setText(mUsername + ": ");
         mMessageInputLayout.setVisibility(View.GONE);
 
-        mMessageListAdapter = new MessageListAdapter(this, MessageDataManager.getInstance().getUsers());
-        mMessageListView.setAdapter(mMessageListAdapter);
+        mMessageInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                sendMessage(mMessageInputText.getText().toString());
+                return true;
+            }
+        });
 
+        MessageListAdapter baseAdapter = new MessageListAdapter(this, MessageDataManager.getInstance().getMessages());
+
+        // drawer toogle (lollipop's hamburger to arrow)
         mDrawerToggle = new ActionBarDrawerToggle (
                 this,
                 mDrawerLayout,
@@ -124,18 +138,36 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         getSupportActionBar().setTitle(getString(R.string.app_name) + ": #default");
+
+        mMessageListAdapter = new SwingRightInAnimationAdapter(baseAdapter);
+        mMessageListAdapter.setAbsListView(mMessageListView);
+        mMessageListView.setAdapter(mMessageListAdapter);
+
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        mMessageListView.onRestoreInstanceState(savedInstanceState.getParcelable(MESSAGES));
+        if (savedInstanceState.getParcelable(MESSAGES) != null) {
+            mMessageListView.onRestoreInstanceState(savedInstanceState.getParcelable(MESSAGES));
+        }
+        if (savedInstanceState.getString(CHAT_INPUT) != null) {
+            mMessageInputText.setText(savedInstanceState.getString(CHAT_INPUT));
+        }
+        if (savedInstanceState.getBoolean(CHAT_INPUT_STATE)) {
+            mMessageInputLayout.setVisibility(View.VISIBLE);
+            mNewMessageButton.setVisibility(View.GONE);
+        }
+        if (savedInstanceState.getBoolean(NAVIGATION_DRAWER_STATE)) mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putString(USERNAME, username);
-        savedInstanceState.putString(PASSWORD, password);
+        savedInstanceState.putString(USERNAME, mUsername);
+        savedInstanceState.putString(PASSWORD, mPassword);
         savedInstanceState.putParcelable(MESSAGES, mMessageListView.onSaveInstanceState());
+        savedInstanceState.putString(CHAT_INPUT, mMessageInputText.getText().toString());
+        savedInstanceState.putBoolean(CHAT_INPUT_STATE, (mMessageInputLayout.getVisibility() == View.VISIBLE)?true:false);
+        savedInstanceState.putBoolean(NAVIGATION_DRAWER_STATE, mDrawerLayout.isDrawerOpen(GravityCompat.START));
     }
 
     @Override
@@ -186,10 +218,7 @@ public class MainActivity extends BaseActivity {
 
     public void newMessageOnClick(View view) {
         Anim.showViewWithAnimation(this, mMessageInputLayout, R.anim.push_up_in);
-        Anim.hideViewWithAnimation(this, mNewMessage, R.anim.abc_fade_out);
-        if (mMessageInput.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
+        Anim.hideViewWithAnimation(this, mNewMessageButton, R.anim.abc_fade_out);
         focusOnNewestMessage();
         mMessageListAdapter.notifyDataSetChanged();
     }
@@ -199,12 +228,15 @@ public class MainActivity extends BaseActivity {
     }
 
     public void sendButtonOnClick(View view) {
-        String message = mMessageInput.getText().toString();
-        if (!message.trim().equals("")) {
-            MessageDataManager.add(new MessageData(System.currentTimeMillis(), username, message));
+        sendMessage(mMessageInputText.getText().toString());
+    }
+
+    public void sendMessage(String message) {
+        if ((message != null) && (!message.trim().equals(""))) {
+            MessageDataManager.add(new MessageData(System.currentTimeMillis(), mUsername, message));
             mMessageListAdapter.notifyDataSetChanged();
             focusOnNewestMessage();
-            mMessageInput.setText(null);
+            mMessageInputText.setText(null);
         }
     }
 
@@ -225,7 +257,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         if (mMessageInputLayout.getVisibility() == View.VISIBLE) {
             Anim.hideViewWithAnimation(this, mMessageInputLayout, R.anim.push_down_out);
-            Anim.showViewWithAnimation(this, mNewMessage, R.anim.abc_fade_in);
+            Anim.showViewWithAnimation(this, mNewMessageButton, R.anim.abc_fade_in);
         } else {
             finish();
             overridePendingTransition(R.anim.push_up_in, R.anim.push_down_out);

@@ -9,9 +9,9 @@ public class MessageDataManager {
     private static MessageDataManager instance;
 
     public static MessageDataManager getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             synchronized(MessageDataManager.class) {
-                if(instance == null) {
+                if (instance == null) {
                     instance = new MessageDataManager();
                 }
             }
@@ -29,7 +29,7 @@ public class MessageDataManager {
         instance.messages.add(message);
     }
 
-    public List<MessageData> getUsers() {
+    public List<MessageData> getMessages() {
         return messages;
     }
 }

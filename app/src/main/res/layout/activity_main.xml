@@ -28,12 +28,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/chat_input_layout">
+                    android:layout_above="@+id/chat_input_layout"
+                    >
 
                     <ListView
                         android:id="@+id/listview_messages"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:transcriptMode="alwaysScroll"
                         />
 
                 </RelativeLayout>
@@ -53,7 +55,7 @@
                         android:text="{Username}"
                         android:id="@+id/chat_username"
                         android:layout_centerInParent="true"
-                        android:layout_alignParentRight="true"/>
+                        android:layout_alignParentLeft="true"/>
 
                     <EditText
                         android:layout_width="match_parent"
@@ -63,7 +65,8 @@
                         android:layout_toLeftOf="@+id/chat_button_send"
                         android:layout_toRightOf="@+id/chat_username"
                         android:inputType="text"
-                        android:hint="@string/chat_message_input_hint"/>
+                        android:hint="@string/chat_message_input_hint"
+                        android:imeOptions="actionSend"/>
 
                     <com.gc.materialdesign.views.ButtonRectangle
                         android:layout_width="100dp"

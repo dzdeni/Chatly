@@ -19,8 +19,13 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:21.0.0'
     compile project(':materialDesign')
+    compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
 }

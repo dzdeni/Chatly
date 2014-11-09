@@ -26,6 +26,6 @@ public class MessageFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return MessageDataManager.getInstance().getUsers().size();
+        return MessageDataManager.getInstance().getMessages().size();
     }
 }
