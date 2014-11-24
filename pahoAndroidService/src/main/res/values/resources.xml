@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string
+        name="mqtt_broker_protocoll"
+        >tcp://</string>
+    <string
+        name="mqtt_broker_url"
+        >178.62.159.137</string>
+    <string
+        name="mqtt_broker_port"
+        >1883</string>
+</resources>

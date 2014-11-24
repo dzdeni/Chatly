@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.0"
+
+    defaultConfig {
+        applicationId "org.eclipse.paho.android.service"
+        minSdkVersion 9
+        targetSdkVersion 19
+    }
+
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+repositories {
+    maven {
+        url 'https://repo.eclipse.org/content/repositories/paho-releases/'
+    }
+}
+
+dependencies {
+    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.1'
+}

@@ -18,11 +18,19 @@
 
     <!-- Settings -->
     <string name="title_activity_settings">Settings</string>
+    <string name="action_connect">Connect</string>
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
     <string name="action_logout">Logout</string>
 
     <!-- Main -->
     <string name="chat_message_input_hint">Write a message</string>
+
+    <!-- Mqtt -->
+    <string name="mqtt_connected">Connected to the server.</string>
+    <string name="mqtt_not_connected">Not connected to the server.</string>
+    <string name="mqtt_connection_lost">Connection lost.</string>
+    <string name="mqtt_connection_failure">Can\'t connect to the server.</string>
+    <string name="mqtt_disconnection_failure">Can\'t disconnect from the server.</string>
 
 </resources>

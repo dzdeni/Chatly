@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import hu.denield.chatly.contant.Extras;
+import hu.denield.chatly.constant.Extras;
 
 
 public class LoginActivity extends BaseActivity {

@@ -1,0 +1,13 @@
+package data;
+
+option java_package = "hu.denield.chatly.data";
+option java_outer_classname = "MessageProto";
+
+message Message {
+  required string name = 1;
+  required string message = 2;
+  message Location {
+    optional float latitude = 3;
+    optional float longitude = 4;
+  }
+}

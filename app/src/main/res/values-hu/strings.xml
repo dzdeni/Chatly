@@ -14,11 +14,19 @@
 
     <!-- Settings -->
     <string name="title_activity_settings">Beállítások</string>
+    <string name="action_connect">Csatlakozás</string>
     <string name="action_settings">Beállítások</string>
     <string name="action_about">About</string>
     <string name="action_logout">Kijelentkezés</string>
 
     <!-- Main -->
     <string name="chat_message_input_hint">Írd be az üzenetet.</string>
+
+    <!-- Mqtt -->
+    <string name="mqtt_connected">Csatlakozva a szerverhez.</string>
+    <string name="mqtt_not_connected">Nincs csatlakozva a szerverhez.</string>
+    <string name="mqtt_connection_lost">Nincs kapcsolat a szerverrel.</string>
+    <string name="mqtt_connection_failure">Nem sikerült kapcsolódni a szerverhez.</string>
+    <string name="mqtt_disconnection_failure">Nem sikerül lekapcsolódni a szerverről.</string>
 
 </resources>

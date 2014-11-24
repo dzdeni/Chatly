@@ -1,4 +1,4 @@
-package hu.denield.chatly.contant;
+package hu.denield.chatly.constant;
 
 public class Extras {
     public static final String USERNAME = "username";
