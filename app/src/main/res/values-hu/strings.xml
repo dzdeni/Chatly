@@ -12,15 +12,28 @@
     <string name="login_empty_fields">Adja meg a felhasználónevét és jelszavát.</string>
     <string name="login_wrong_username_or_password">Rossz felhasználónév vagy jelszó.</string>
 
-    <!-- Settings -->
-    <string name="title_activity_settings">Beállítások</string>
+    <!-- Menu -->
     <string name="action_connect">Csatlakozás</string>
     <string name="action_settings">Beállítások</string>
-    <string name="action_about">About</string>
+    <string name="action_about">Névjegy</string>
     <string name="action_logout">Kijelentkezés</string>
+
+    <!-- Settings -->
+    <string name="title_activity_settings">Beállítások</string>
+    <string name="settings_autologin">Automatikus bejelentkeztetés</string>
+    <string name="settings_autologin_summary">Mindig automatikusan belépteti a felhasználót.</string>
+
+    <!-- About -->
+    <string name="title_activity_about">Névjegy</string>
+    <string name="about_whatisthis">Chatly - Az Üzenetküldő</string>
+    <string name="about_createdfor">Android Kötelező program</string>
+    <string name="about_year">2014</string>
 
     <!-- Main -->
     <string name="chat_message_input_hint">Írd be az üzenetet.</string>
+
+    <!-- Fragment -->
+    <string name="fragment_error">Fragmens hiba!</string>
 
     <!-- Mqtt -->
     <string name="mqtt_connected">Csatlakozva a szerverhez.</string>

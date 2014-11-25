@@ -74,18 +74,14 @@ public class MqttActionListener implements IMqttActionListener {
      * object associated with the client this action belongs to, then notify the
      * user of success
      */
-    private void publish() {
-
-    }
+    private void publish() {}
 
     /**
      * A subscribe action has been successfully completed, update the connection
      * object associated with the client this action belongs to and then notify
      * the user of success
      */
-    private void subscribe() {
-
-    }
+    private void subscribe() {}
 
     /**
      * A disconnection action has been successfully completed, update the
@@ -140,20 +136,15 @@ public class MqttActionListener implements IMqttActionListener {
     /**
      * A publish action was unsuccessful, notify user and update client history
      *
-     * @param exception
-     *            This argument is not used
+     * @param exception This argument is not used
      */
-    private void publish(Throwable exception) {
-
-    }
+    private void publish(Throwable exception) {}
 
     /**
      * A subscribe action was unsuccessful, notify user and update client history
      * @param exception This argument is not used
      */
-    private void subscribe(Throwable exception) {
-
-    }
+    private void subscribe(Throwable exception) {}
 
     /**
      * A disconnect action was unsuccessful, notify user and update client history

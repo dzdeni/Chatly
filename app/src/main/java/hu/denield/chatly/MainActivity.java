@@ -35,9 +35,9 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 
 import hu.denield.chatly.adapter.MessageListAdapter;
 import hu.denield.chatly.constant.Extras;
+import hu.denield.chatly.constant.Fragments;
 import hu.denield.chatly.constant.LogTag;
 import hu.denield.chatly.constant.Mqtt;
-import hu.denield.chatly.constant.SharedPrefs;
 import hu.denield.chatly.data.MessageData;
 import hu.denield.chatly.data.MessageDataManager;
 import hu.denield.chatly.data.MessageProto;
@@ -100,10 +100,25 @@ public class MainActivity extends BaseActivity {
                 mUsername = getIntent().getStringExtra(Extras.USERNAME);
                 mPassword = getIntent().getStringExtra(Extras.PASSWORD);
                 mRemember = getIntent().getBooleanExtra(Extras.REMEMBER, false);
+
+                SharedPreferences.Editor editor = mSp.edit();
+                // save the login credentials for further use (next login)
+                if (mRemember) {
+                    editor.putBoolean(getString(R.string.pref_autologin), true);
+                    editor.putString(getString(R.string.pref_username), mUsername);
+                    editor.putString(getString(R.string.pref_password), mPassword);
+                } else {
+                    editor.putBoolean(getString(R.string.pref_autologin), false);
+                    editor.remove(getString(R.string.pref_username));
+                    editor.remove(getString(R.string.pref_password));
+                }
+                editor.apply();
             } else {
                 // trying to get login from SharedPreferences
-                mUsername = mSp.getString(SharedPrefs.USERNAME, null);
-                mPassword = mSp.getString(SharedPrefs.PASSWORD, null);
+                if (mSp.getBoolean(getString(R.string.pref_autologin), false)) {
+                    mUsername = mSp.getString(getString(R.string.pref_username), null);
+                    mPassword = mSp.getString(getString(R.string.pref_password), null);
+                }
             }
         } else {
             // trying to login from savedInstanceState
@@ -113,13 +128,9 @@ public class MainActivity extends BaseActivity {
 
         // validate the user
         if (!validateUser(mUsername, mPassword)) return;
-
-        // save the login credentials for further use (next login)
-        if (mRemember) {
-            SharedPreferences.Editor editor = mSp.edit();
-            editor.putString(SharedPrefs.USERNAME, mUsername);
-            editor.putString(SharedPrefs.PASSWORD, mPassword);
-            editor.apply();
+        else {
+            ((Chatly) getApplication()).setUsername(mUsername);
+            ((Chatly) getApplication()).setPassword(mPassword);
         }
 
         // load the view from the inflated layout
@@ -287,7 +298,8 @@ public class MainActivity extends BaseActivity {
                         if (!mClient.isConnected()) {
                             mClient.connect();
                         } else {
-                            mClient.disconnect(5);
+                            Toast.makeText(MainActivity.this, R.string.mqtt_connected, Toast.LENGTH_SHORT).show();
+                            //mClient.disconnect(5);
                         }
                     } catch (MqttException e) {
                         Log.e(LogTag.ERROR, e.getStackTrace().toString());
@@ -295,14 +307,16 @@ public class MainActivity extends BaseActivity {
                 }
                 return true;
             case R.id.action_settings:
-                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                Intent settingsIntent = new Intent(this, FragmentActivity.class);
+                settingsIntent.putExtra(Extras.FRAGMENT, Fragments.FragmentName.SETTINGS.ordinal());
                 startActivity(settingsIntent);
                 return true;
+            case R.id.action_about:
+                Intent aboutIntent = new Intent(this, FragmentActivity.class);
+                aboutIntent.putExtra(Extras.FRAGMENT, Fragments.FragmentName.ABOUT.ordinal());
+                startActivity(aboutIntent);
+                return true;
             case R.id.action_logout:
-                SharedPreferences.Editor editor = mSp.edit();
-                editor.remove(SharedPrefs.USERNAME);
-                editor.remove(SharedPrefs.PASSWORD);
-                editor.apply();
                 finish();
                 return true;
         }

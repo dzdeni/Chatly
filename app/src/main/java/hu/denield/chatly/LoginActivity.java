@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import com.gc.materialdesign.views.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import hu.denield.chatly.constant.Extras;
+import com.gc.materialdesign.views.CheckBox;
 
+import hu.denield.chatly.constant.Extras;
+import hu.denield.chatly.constant.Fragments;
 
 public class LoginActivity extends BaseActivity {
 
@@ -73,7 +74,9 @@ public class LoginActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
-            Toast.makeText(this, getString(R.string.action_about), Toast.LENGTH_SHORT).show();
+            Intent aboutIntent = new Intent(this, FragmentActivity.class);
+            aboutIntent.putExtra(Extras.FRAGMENT, Fragments.FragmentName.ABOUT.ordinal());
+            startActivity(aboutIntent);
             return true;
         }
 

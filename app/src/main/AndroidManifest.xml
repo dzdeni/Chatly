@@ -21,8 +21,7 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:name=".FragmentActivity"
             android:parentActivityName=".MainActivity">
         </activity>
         <service
