@@ -62,8 +62,8 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8973913" vertical-offset="4057" max-vertical-offset="8823">
-              <caret line="269" column="60" selection-start-line="269" selection-start-column="60" selection-end-line="269" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.92695653" vertical-offset="4057" max-vertical-offset="8823">
+              <caret line="270" column="39" selection-start-line="270" selection-start-column="39" selection-end-line="270" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4886#4920#0" expanded="true" />
@@ -87,14 +87,14 @@
                 <element signature="e#10327#10355#0" expanded="true" />
                 <element signature="e#10562#10847#0" expanded="true" />
                 <element signature="e#10836#10837#0" expanded="true" />
-                <element signature="e#11486#11527#0" expanded="true" />
-                <element signature="e#11553#11588#0" expanded="true" />
-                <element signature="e#11612#11648#0" expanded="true" />
-                <element signature="e#15766#15789#0" expanded="true" />
-                <element signature="e#17434#17461#0" expanded="true" />
-                <element signature="e#19406#19648#0" expanded="true" />
-                <element signature="e#19629#19630#0" expanded="true" />
-                <element signature="e#20006#20058#0" expanded="true" />
+                <element signature="e#11496#11537#0" expanded="true" />
+                <element signature="e#11563#11598#0" expanded="true" />
+                <element signature="e#11622#11658#0" expanded="true" />
+                <element signature="e#15776#15799#0" expanded="true" />
+                <element signature="e#17444#17471#0" expanded="true" />
+                <element signature="e#19416#19658#0" expanded="true" />
+                <element signature="e#19639#19640#0" expanded="true" />
+                <element signature="e#20016#20068#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1923,11 +1923,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/util/StringHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/data/MessageDataManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-hu/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/drawer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/Chatly.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -2287,7 +2287,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1932" height="1056" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2306,7 +2306,7 @@
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32925472" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17521368" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17521368" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2820,8 +2820,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/hu/denield/chatly/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8973913" vertical-offset="4057" max-vertical-offset="8823">
-          <caret line="269" column="60" selection-start-line="269" selection-start-column="60" selection-end-line="269" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.92695653" vertical-offset="4057" max-vertical-offset="8823">
+          <caret line="270" column="39" selection-start-line="270" selection-start-column="39" selection-end-line="270" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4886#4920#0" expanded="true" />
@@ -2845,14 +2845,14 @@
             <element signature="e#10327#10355#0" expanded="true" />
             <element signature="e#10562#10847#0" expanded="true" />
             <element signature="e#10836#10837#0" expanded="true" />
-            <element signature="e#11486#11527#0" expanded="true" />
-            <element signature="e#11553#11588#0" expanded="true" />
-            <element signature="e#11612#11648#0" expanded="true" />
-            <element signature="e#15766#15789#0" expanded="true" />
-            <element signature="e#17434#17461#0" expanded="true" />
-            <element signature="e#19406#19648#0" expanded="true" />
-            <element signature="e#19629#19630#0" expanded="true" />
-            <element signature="e#20006#20058#0" expanded="true" />
+            <element signature="e#11496#11537#0" expanded="true" />
+            <element signature="e#11563#11598#0" expanded="true" />
+            <element signature="e#11622#11658#0" expanded="true" />
+            <element signature="e#15776#15799#0" expanded="true" />
+            <element signature="e#17444#17471#0" expanded="true" />
+            <element signature="e#19416#19658#0" expanded="true" />
+            <element signature="e#19639#19640#0" expanded="true" />
+            <element signature="e#20016#20068#0" expanded="true" />
           </folding>
         </state>
       </provider>

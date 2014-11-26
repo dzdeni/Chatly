@@ -267,8 +267,8 @@ public class MainActivity extends BaseActivity implements LocationListener,
     }
 
     private void updateTraffic() {
-        mDownloadedTextView.setText(StringHelper.humanReadableByteCount(mStats.getUidRxBytes(app.getApplicationInfo().uid) - app.getDownloadedAtStart(), false));
-        mUploadedTextView.setText(StringHelper.humanReadableByteCount(mStats.getUidTxBytes(app.getApplicationInfo().uid) - app.getUploadedAtStart(), false));
+        mDownloadedTextView.setText(": "+StringHelper.humanReadableByteCount(mStats.getUidRxBytes(app.getApplicationInfo().uid) - app.getDownloadedAtStart(), false));
+        mUploadedTextView.setText(": "+StringHelper.humanReadableByteCount(mStats.getUidTxBytes(app.getApplicationInfo().uid) - app.getUploadedAtStart(), false));
     }
 
     private void initializeMqttClient() {
