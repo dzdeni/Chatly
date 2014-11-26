@@ -1,16 +1,13 @@
 package hu.denield.chatly;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -26,6 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFloat;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
 import com.nhaarman.listviewanimations.appearance.simple.SwingRightInAnimationAdapter;
 
@@ -45,7 +48,9 @@ import hu.denield.chatly.mqtt.AndroidClient;
 import hu.denield.chatly.mqtt.MqttCallbackHandler;
 import hu.denield.chatly.util.Anim;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements LocationListener,
+                                                          GooglePlayServicesClient.ConnectionCallbacks,
+                                                          GooglePlayServicesClient.OnConnectionFailedListener {
 
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
@@ -56,10 +61,14 @@ public class MainActivity extends BaseActivity {
     public static final String CHAT_INPUT_STATE = "chatInputState";
     public static final String NAVIGATION_DRAWER_STATE = "navigationDrawerState";
 
+    private Chatly app;
+
     private Menu mMenu;
 
     private SharedPreferences mSp;
-    private NotificationManager mNotificationManager;
+
+    private LocationRequest mLocationRequest;
+    private LocationClient mLocationClient;
 
     private ListView mMessageListView;
     private AnimationAdapter mMessageListAdapter;
@@ -84,6 +93,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        app = (Chatly) getApplication();
+
         // set the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -91,12 +102,10 @@ public class MainActivity extends BaseActivity {
         // initialize shared preferences
         mSp = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
 
-        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
         // fresh start
         if (savedInstanceState == null) {
             if (getIntent().getExtras() != null) {
-                // trying to login
+                // trying to login from Login form
                 mUsername = getIntent().getStringExtra(Extras.USERNAME);
                 mPassword = getIntent().getStringExtra(Extras.PASSWORD);
                 mRemember = getIntent().getBooleanExtra(Extras.REMEMBER, false);
@@ -114,7 +123,7 @@ public class MainActivity extends BaseActivity {
                 }
                 editor.apply();
             } else {
-                // trying to get login from SharedPreferences
+                // trying to login from SharedPreferences
                 if (mSp.getBoolean(getString(R.string.pref_autologin), false)) {
                     mUsername = mSp.getString(getString(R.string.pref_username), null);
                     mPassword = mSp.getString(getString(R.string.pref_password), null);
@@ -129,8 +138,8 @@ public class MainActivity extends BaseActivity {
         // validate the user
         if (!validateUser(mUsername, mPassword)) return;
         else {
-            ((Chatly) getApplication()).setUsername(mUsername);
-            ((Chatly) getApplication()).setPassword(mPassword);
+            app.setUsername(mUsername);
+            app.setPassword(mPassword);
         }
 
         // load the view from the inflated layout
@@ -185,8 +194,21 @@ public class MainActivity extends BaseActivity {
         // list adapter
         MessageListAdapter baseAdapter = new MessageListAdapter(this, MessageDataManager.getInstance().getMessages());
         mMessageListAdapter = new SwingRightInAnimationAdapter(baseAdapter);
-        mMessageListAdapter.setAbsListView(mMessageListView);
         mMessageListView.setAdapter(mMessageListAdapter);
+        mMessageListAdapter.setAbsListView(mMessageListView);
+
+        mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                MessageData message = MessageDataManager.getInstance().getMessages().get(position);
+                if (message != null && message.getLocation() != null && message.getLocation().getLongitude() != 0.0) {
+                    Toast.makeText(MainActivity.this, message.getLocation().getLatitude() +", "+ message.getLocation().getLongitude(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.gps_no_data, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         // message receiver
         mReceiver = new MessageReceiver();
@@ -194,6 +216,14 @@ public class MainActivity extends BaseActivity {
 
         // initialize and connect to mqtt broker if needed
         initializeMqttClient();
+
+        // location
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(90);
+        mLocationRequest.setFastestInterval(30);
+        mLocationRequest.setSmallestDisplacement(10);
+        mLocationClient = new LocationClient(this, this, this);
     }
 
     private void initializeMqttClient() {
@@ -253,17 +283,25 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mLocationClient.connect();
+        mMessageListAdapter.notifyDataSetChanged();
         mClient.registerResources(this);
         mClient.setCallback(new MqttCallbackHandler(this));
         registerReceiver(mReceiver, mIntentFilter);
-    };
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mClient.unregisterResources();
+        mLocationClient.connect();
         unregisterReceiver(mReceiver);
-    };
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mClient.unregisterResources();
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -324,22 +362,6 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class MessageReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(Mqtt.RECEIVER_MESSAGE_RECEIVED)) {
-                String username = intent.getStringExtra(Mqtt.MESSAGE_NAME);
-                String message = intent.getStringExtra(Mqtt.MESSAGE_MESSAGE);
-                MessageDataManager.add(new MessageData(System.currentTimeMillis(), username, message));
-                mMessageListAdapter.notifyDataSetChanged();
-                focusOnNewestMessage();
-                if (!username.equals(mUsername)) {
-                    mNotificationManager.notify(Mqtt.NOTIFICATION_ID, createNotification(username, message));
-                }
-            }
-        }
-    }
 
     public void newMessageOnClick(View view) {
         Anim.showViewWithAnimation(this, mMessageInputLayout, R.anim.push_up_in);
@@ -374,28 +396,48 @@ public class MainActivity extends BaseActivity {
     }
 
     private MessageProto.Message createMessage(String username, String message) {
-        return MessageProto.Message.newBuilder()
-                        .setName(username)
-                        .setMessage(message)
-                        .build();
+        MessageProto.Message.Builder builder = MessageProto.Message.newBuilder()
+                .setName(username)
+                .setMessage(message);
+        Location location = app.getLocation();
+        if (location != null) {
+            builder.setLocation(
+                    MessageProto.Message.Location.newBuilder()
+                            .setLatitude((float) location.getLatitude())
+                            .setLongitude((float) location.getLongitude())
+                            .build());
+        }
+        return builder.build();
     }
 
-    private Notification createNotification(String username, String message) {
-        // Create a notification for the service to go foreground.
-        NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle(username)
-                        .setContentText(message);
+    @Override
+    public void onConnected(Bundle bundle) {
+        mLocationClient.requestLocationUpdates(mLocationRequest, this);
+    }
 
-        // building
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        notificationIntent.setAction(Intent.ACTION_MAIN);
-        notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        notificationBuilder.setContentIntent(pendingIntent);
-        Notification notification = notificationBuilder.build();
-        return notification;
+    @Override
+    public void onDisconnected() {
+        mLocationClient.removeLocationUpdates(this);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        app.setLocation(location);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(Mqtt.RECEIVER_MESSAGE_RECEIVED)) {
+                mMessageListAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     public boolean validateUser(String username, String password) {

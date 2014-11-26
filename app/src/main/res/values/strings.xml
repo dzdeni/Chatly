@@ -46,6 +46,9 @@
     <string name="mqtt_connection_failure">Can\'t connect to the server.</string>
     <string name="mqtt_disconnection_failure">Can\'t disconnect from the server.</string>
 
+    <!-- GPS -->
+    <string name="gps_no_data">There is no GPS information.</string>
+
     <!-- Preferences -->
     <string name="pref_username">pref_username</string>
     <string name="pref_password">pref_password</string>

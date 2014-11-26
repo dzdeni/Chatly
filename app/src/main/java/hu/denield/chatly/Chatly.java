@@ -1,11 +1,13 @@
 package hu.denield.chatly;
 
 import android.app.Application;
+import android.location.Location;
 
 public class Chatly extends Application {
 
     private String username;
     private String password;
+    private Location location;
 
     @Override
     public void onCreate() {
@@ -26,5 +28,13 @@ public class Chatly extends Application {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

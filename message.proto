@@ -7,7 +7,8 @@ message Message {
   required string name = 1;
   required string message = 2;
   message Location {
-    optional float latitude = 3;
-    optional float longitude = 4;
+    required float latitude = 1;
+    required float longitude = 2;
   }
+  optional Location location = 3;
 }

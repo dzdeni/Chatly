@@ -2,6 +2,7 @@ package hu.denield.chatly.mqtt;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -32,7 +33,10 @@ public class MqttCallbackHandler implements MqttCallback {
             Intent i = new Intent(Mqtt.RECEIVER_MESSAGE_RECEIVED);
             i.putExtra(Mqtt.MESSAGE_NAME, parsedMessage.getName());
             i.putExtra(Mqtt.MESSAGE_MESSAGE, parsedMessage.getMessage());
-
+            if (parsedMessage.hasLocation()) {
+                i.putExtra(Mqtt.MESSAGE_LATITUDE, parsedMessage.getLocation().getLatitude());
+                i.putExtra(Mqtt.MESSAGE_LONGITUDE, parsedMessage.getLocation().getLongitude());
+            }
             context.sendBroadcast(i);
         }
     }

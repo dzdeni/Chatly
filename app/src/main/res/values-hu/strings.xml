@@ -35,6 +35,9 @@
     <!-- Fragment -->
     <string name="fragment_error">Fragmens hiba!</string>
 
+    <!-- GPS -->
+    <string name="gps_no_data">Nincsenek helyadatok.</string>
+
     <!-- Mqtt -->
     <string name="mqtt_connected">Csatlakozva a szerverhez.</string>
     <string name="mqtt_not_connected">Nincs csatlakozva a szerverhez.</string>

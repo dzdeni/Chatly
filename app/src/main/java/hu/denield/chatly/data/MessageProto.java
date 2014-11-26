@@ -39,6 +39,19 @@ public final class MessageProto {
      */
     com.google.protobuf.ByteString
         getMessageBytes();
+
+    /**
+     * <code>optional .data.Message.Location location = 3;</code>
+     */
+    boolean hasLocation();
+    /**
+     * <code>optional .data.Message.Location location = 3;</code>
+     */
+    hu.denield.chatly.data.MessageProto.Message.Location getLocation();
+    /**
+     * <code>optional .data.Message.Location location = 3;</code>
+     */
+    hu.denield.chatly.data.MessageProto.Message.LocationOrBuilder getLocationOrBuilder();
   }
   /**
    * Protobuf type {@code data.Message}
@@ -104,6 +117,19 @@ public final class MessageProto {
               message_ = bs;
               break;
             }
+            case 26: {
+              hu.denield.chatly.data.MessageProto.Message.Location.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = location_.toBuilder();
+              }
+              location_ = input.readMessage(hu.denield.chatly.data.MessageProto.Message.Location.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(location_);
+                location_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -148,20 +174,20 @@ public final class MessageProto {
         com.google.protobuf.MessageOrBuilder {
 
       /**
-       * <code>optional float latitude = 3;</code>
+       * <code>required float latitude = 1;</code>
        */
       boolean hasLatitude();
       /**
-       * <code>optional float latitude = 3;</code>
+       * <code>required float latitude = 1;</code>
        */
       float getLatitude();
 
       /**
-       * <code>optional float longitude = 4;</code>
+       * <code>required float longitude = 2;</code>
        */
       boolean hasLongitude();
       /**
-       * <code>optional float longitude = 4;</code>
+       * <code>required float longitude = 2;</code>
        */
       float getLongitude();
     }
@@ -217,12 +243,12 @@ public final class MessageProto {
                 }
                 break;
               }
-              case 29: {
+              case 13: {
                 bitField0_ |= 0x00000001;
                 latitude_ = input.readFloat();
                 break;
               }
-              case 37: {
+              case 21: {
                 bitField0_ |= 0x00000002;
                 longitude_ = input.readFloat();
                 break;
@@ -267,31 +293,31 @@ public final class MessageProto {
       }
 
       private int bitField0_;
-      public static final int LATITUDE_FIELD_NUMBER = 3;
+      public static final int LATITUDE_FIELD_NUMBER = 1;
       private float latitude_;
       /**
-       * <code>optional float latitude = 3;</code>
+       * <code>required float latitude = 1;</code>
        */
       public boolean hasLatitude() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional float latitude = 3;</code>
+       * <code>required float latitude = 1;</code>
        */
       public float getLatitude() {
         return latitude_;
       }
 
-      public static final int LONGITUDE_FIELD_NUMBER = 4;
+      public static final int LONGITUDE_FIELD_NUMBER = 2;
       private float longitude_;
       /**
-       * <code>optional float longitude = 4;</code>
+       * <code>required float longitude = 2;</code>
        */
       public boolean hasLongitude() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional float longitude = 4;</code>
+       * <code>required float longitude = 2;</code>
        */
       public float getLongitude() {
         return longitude_;
@@ -307,6 +333,14 @@ public final class MessageProto {
         if (isInitialized == 1) return true;
         if (isInitialized == 0) return false;
 
+        if (!hasLatitude()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasLongitude()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
         memoizedIsInitialized = 1;
         return true;
       }
@@ -315,10 +349,10 @@ public final class MessageProto {
                           throws java.io.IOException {
         getSerializedSize();
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeFloat(3, latitude_);
+          output.writeFloat(1, latitude_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeFloat(4, longitude_);
+          output.writeFloat(2, longitude_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -331,11 +365,11 @@ public final class MessageProto {
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(3, latitude_);
+            .computeFloatSize(1, latitude_);
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(4, longitude_);
+            .computeFloatSize(2, longitude_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -521,6 +555,14 @@ public final class MessageProto {
         }
 
         public final boolean isInitialized() {
+          if (!hasLatitude()) {
+            
+            return false;
+          }
+          if (!hasLongitude()) {
+            
+            return false;
+          }
           return true;
         }
 
@@ -545,19 +587,19 @@ public final class MessageProto {
 
         private float latitude_ ;
         /**
-         * <code>optional float latitude = 3;</code>
+         * <code>required float latitude = 1;</code>
          */
         public boolean hasLatitude() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
         /**
-         * <code>optional float latitude = 3;</code>
+         * <code>required float latitude = 1;</code>
          */
         public float getLatitude() {
           return latitude_;
         }
         /**
-         * <code>optional float latitude = 3;</code>
+         * <code>required float latitude = 1;</code>
          */
         public Builder setLatitude(float value) {
           bitField0_ |= 0x00000001;
@@ -566,7 +608,7 @@ public final class MessageProto {
           return this;
         }
         /**
-         * <code>optional float latitude = 3;</code>
+         * <code>required float latitude = 1;</code>
          */
         public Builder clearLatitude() {
           bitField0_ = (bitField0_ & ~0x00000001);
@@ -577,19 +619,19 @@ public final class MessageProto {
 
         private float longitude_ ;
         /**
-         * <code>optional float longitude = 4;</code>
+         * <code>required float longitude = 2;</code>
          */
         public boolean hasLongitude() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
         /**
-         * <code>optional float longitude = 4;</code>
+         * <code>required float longitude = 2;</code>
          */
         public float getLongitude() {
           return longitude_;
         }
         /**
-         * <code>optional float longitude = 4;</code>
+         * <code>required float longitude = 2;</code>
          */
         public Builder setLongitude(float value) {
           bitField0_ |= 0x00000002;
@@ -598,7 +640,7 @@ public final class MessageProto {
           return this;
         }
         /**
-         * <code>optional float longitude = 4;</code>
+         * <code>required float longitude = 2;</code>
          */
         public Builder clearLongitude() {
           bitField0_ = (bitField0_ & ~0x00000002);
@@ -703,9 +745,31 @@ public final class MessageProto {
       }
     }
 
+    public static final int LOCATION_FIELD_NUMBER = 3;
+    private hu.denield.chatly.data.MessageProto.Message.Location location_;
+    /**
+     * <code>optional .data.Message.Location location = 3;</code>
+     */
+    public boolean hasLocation() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .data.Message.Location location = 3;</code>
+     */
+    public hu.denield.chatly.data.MessageProto.Message.Location getLocation() {
+      return location_;
+    }
+    /**
+     * <code>optional .data.Message.Location location = 3;</code>
+     */
+    public hu.denield.chatly.data.MessageProto.Message.LocationOrBuilder getLocationOrBuilder() {
+      return location_;
+    }
+
     private void initFields() {
       name_ = "";
       message_ = "";
+      location_ = hu.denield.chatly.data.MessageProto.Message.Location.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -721,6 +785,12 @@ public final class MessageProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (hasLocation()) {
+        if (!getLocation().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -733,6 +803,9 @@ public final class MessageProto {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, getMessageBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(3, location_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -750,6 +823,10 @@ public final class MessageProto {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, getMessageBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, location_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -860,6 +937,7 @@ public final class MessageProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getLocationFieldBuilder();
         }
       }
       private static Builder create() {
@@ -872,6 +950,12 @@ public final class MessageProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         message_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
+        if (locationBuilder_ == null) {
+          location_ = hu.denield.chatly.data.MessageProto.Message.Location.getDefaultInstance();
+        } else {
+          locationBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -908,6 +992,14 @@ public final class MessageProto {
           to_bitField0_ |= 0x00000002;
         }
         result.message_ = message_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        if (locationBuilder_ == null) {
+          result.location_ = location_;
+        } else {
+          result.location_ = locationBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -934,6 +1026,9 @@ public final class MessageProto {
           message_ = other.message_;
           onChanged();
         }
+        if (other.hasLocation()) {
+          mergeLocation(other.getLocation());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -946,6 +1041,12 @@ public final class MessageProto {
         if (!hasMessage()) {
           
           return false;
+        }
+        if (hasLocation()) {
+          if (!getLocation().isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -1121,6 +1222,122 @@ public final class MessageProto {
         return this;
       }
 
+      private hu.denield.chatly.data.MessageProto.Message.Location location_ = hu.denield.chatly.data.MessageProto.Message.Location.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          hu.denield.chatly.data.MessageProto.Message.Location, hu.denield.chatly.data.MessageProto.Message.Location.Builder, hu.denield.chatly.data.MessageProto.Message.LocationOrBuilder> locationBuilder_;
+      /**
+       * <code>optional .data.Message.Location location = 3;</code>
+       */
+      public boolean hasLocation() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .data.Message.Location location = 3;</code>
+       */
+      public hu.denield.chatly.data.MessageProto.Message.Location getLocation() {
+        if (locationBuilder_ == null) {
+          return location_;
+        } else {
+          return locationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .data.Message.Location location = 3;</code>
+       */
+      public Builder setLocation(hu.denield.chatly.data.MessageProto.Message.Location value) {
+        if (locationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          location_ = value;
+          onChanged();
+        } else {
+          locationBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .data.Message.Location location = 3;</code>
+       */
+      public Builder setLocation(
+          hu.denield.chatly.data.MessageProto.Message.Location.Builder builderForValue) {
+        if (locationBuilder_ == null) {
+          location_ = builderForValue.build();
+          onChanged();
+        } else {
+          locationBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .data.Message.Location location = 3;</code>
+       */
+      public Builder mergeLocation(hu.denield.chatly.data.MessageProto.Message.Location value) {
+        if (locationBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              location_ != hu.denield.chatly.data.MessageProto.Message.Location.getDefaultInstance()) {
+            location_ =
+              hu.denield.chatly.data.MessageProto.Message.Location.newBuilder(location_).mergeFrom(value).buildPartial();
+          } else {
+            location_ = value;
+          }
+          onChanged();
+        } else {
+          locationBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .data.Message.Location location = 3;</code>
+       */
+      public Builder clearLocation() {
+        if (locationBuilder_ == null) {
+          location_ = hu.denield.chatly.data.MessageProto.Message.Location.getDefaultInstance();
+          onChanged();
+        } else {
+          locationBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>optional .data.Message.Location location = 3;</code>
+       */
+      public hu.denield.chatly.data.MessageProto.Message.Location.Builder getLocationBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getLocationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .data.Message.Location location = 3;</code>
+       */
+      public hu.denield.chatly.data.MessageProto.Message.LocationOrBuilder getLocationOrBuilder() {
+        if (locationBuilder_ != null) {
+          return locationBuilder_.getMessageOrBuilder();
+        } else {
+          return location_;
+        }
+      }
+      /**
+       * <code>optional .data.Message.Location location = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          hu.denield.chatly.data.MessageProto.Message.Location, hu.denield.chatly.data.MessageProto.Message.Location.Builder, hu.denield.chatly.data.MessageProto.Message.LocationOrBuilder> 
+          getLocationFieldBuilder() {
+        if (locationBuilder_ == null) {
+          locationBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              hu.denield.chatly.data.MessageProto.Message.Location, hu.denield.chatly.data.MessageProto.Message.Location.Builder, hu.denield.chatly.data.MessageProto.Message.LocationOrBuilder>(
+                  getLocation(),
+                  getParentForChildren(),
+                  isClean());
+          location_ = null;
+        }
+        return locationBuilder_;
+      }
+
       // @@protoc_insertion_point(builder_scope:data.Message)
     }
 
@@ -1151,10 +1368,11 @@ public final class MessageProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmessage.proto\022\004data\"Y\n\007Message\022\014\n\004name" +
-      "\030\001 \002(\t\022\017\n\007message\030\002 \002(\t\032/\n\010Location\022\020\n\010l" +
-      "atitude\030\003 \001(\002\022\021\n\tlongitude\030\004 \001(\002B&\n\026hu.d" +
-      "enield.chatly.dataB\014MessageProto"
+      "\n\rmessage.proto\022\004data\"\203\001\n\007Message\022\014\n\004nam" +
+      "e\030\001 \002(\t\022\017\n\007message\030\002 \002(\t\022(\n\010location\030\003 \001" +
+      "(\0132\026.data.Message.Location\032/\n\010Location\022\020" +
+      "\n\010latitude\030\001 \002(\002\022\021\n\tlongitude\030\002 \002(\002B&\n\026h" +
+      "u.denield.chatly.dataB\014MessageProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1173,7 +1391,7 @@ public final class MessageProto {
     internal_static_data_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_data_Message_descriptor,
-        new java.lang.String[] { "Name", "Message", });
+        new java.lang.String[] { "Name", "Message", "Location", });
     internal_static_data_Message_Location_descriptor =
       internal_static_data_Message_descriptor.getNestedTypes().get(0);
     internal_static_data_Message_Location_fieldAccessorTable = new

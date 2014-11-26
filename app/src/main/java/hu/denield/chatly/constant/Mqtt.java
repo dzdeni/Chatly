@@ -7,6 +7,8 @@ public class Mqtt {
 
     public static final String MESSAGE_NAME = "name";
     public static final String MESSAGE_MESSAGE = "message";
+    public static final String MESSAGE_LATITUDE = "latitude";
+    public static final String MESSAGE_LONGITUDE = "longitude";
 
     public static final String RECEIVER_MESSAGE_RECEIVED = "hu.denield.chatly.MESSAGE_ARRIVED";
 }
