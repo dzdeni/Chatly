@@ -4,10 +4,6 @@
     <string name="app_name">Chatly</string>
     <string name="hello_world">Hello world!</string>
 
-    <!-- Drawer -->
-    <string name="drawer_open">@string/app_name</string>
-    <string name="drawer_close">{room}</string>
-
     <!-- LoginActivity -->
     <string name="title_activity_login">Login</string>
     <string name="login_username">Username</string>
@@ -35,6 +31,7 @@
 
     <!-- Main -->
     <string name="chat_message_input_hint">Write a message</string>
+    <string name="chat_button_send">Send</string>
 
     <!-- Fragment -->
     <string name="fragment_error">Fragment error!</string>
@@ -48,6 +45,12 @@
 
     <!-- GPS -->
     <string name="gps_no_data">There is no GPS information.</string>
+
+    <!-- Drawer -->
+    <string name="drawer_open">@string/app_name</string>
+    <string name="drawer_close">{room}</string>
+    <string name="drawer_downloaded">Downloaded</string>
+    <string name="drawer_uploaded">Uploaded</string>
 
     <!-- Preferences -->
     <string name="pref_username">pref_username</string>

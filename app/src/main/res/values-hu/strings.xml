@@ -31,6 +31,7 @@
 
     <!-- Main -->
     <string name="chat_message_input_hint">Írd be az üzenetet.</string>
+    <string name="chat_button_send">Küldés</string>
 
     <!-- Fragment -->
     <string name="fragment_error">Fragmens hiba!</string>
@@ -44,5 +45,16 @@
     <string name="mqtt_connection_lost">Nincs kapcsolat a szerverrel.</string>
     <string name="mqtt_connection_failure">Nem sikerült kapcsolódni a szerverhez.</string>
     <string name="mqtt_disconnection_failure">Nem sikerül lekapcsolódni a szerverről.</string>
+
+    <!-- Drawer -->
+    <string name="drawer_open">@string/app_name</string>
+    <string name="drawer_close">{room}</string>
+    <string name="drawer_downloaded">Letöltött</string>
+    <string name="drawer_uploaded">Feltöltött</string>
+
+    <!-- Preferences -->
+    <string name="pref_username">pref_username</string>
+    <string name="pref_password">pref_password</string>
+    <string name="pref_autologin">pref_autologin</string>
 
 </resources>

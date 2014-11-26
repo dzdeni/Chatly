@@ -7,7 +7,9 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
+import android.net.TrafficStats;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -47,10 +49,13 @@ import hu.denield.chatly.data.MessageProto;
 import hu.denield.chatly.mqtt.AndroidClient;
 import hu.denield.chatly.mqtt.MqttCallbackHandler;
 import hu.denield.chatly.util.Anim;
+import hu.denield.chatly.util.StringHelper;
 
 public class MainActivity extends BaseActivity implements LocationListener,
                                                           GooglePlayServicesClient.ConnectionCallbacks,
                                                           GooglePlayServicesClient.OnConnectionFailedListener {
+
+    public static final int TRAFFIC_UPDATE_INTERVAL = 2000;
 
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
@@ -62,6 +67,8 @@ public class MainActivity extends BaseActivity implements LocationListener,
     public static final String NAVIGATION_DRAWER_STATE = "navigationDrawerState";
 
     private Chatly app;
+
+    private TrafficStats mStats;
 
     private Menu mMenu;
 
@@ -83,6 +90,11 @@ public class MainActivity extends BaseActivity implements LocationListener,
     private RelativeLayout mMessageInputLayout;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private TextView mDownloadedTextView;
+    private TextView mUploadedTextView;
+
+    private Runnable mTrafficUpdateRunnable;
+    private Handler mTrafficUpdateHandler;
 
     private MqttAndroidClient mClient;
 
@@ -101,6 +113,9 @@ public class MainActivity extends BaseActivity implements LocationListener,
 
         // initialize shared preferences
         mSp = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
+
+        // initialize traffic data
+        mStats = new TrafficStats();
 
         // fresh start
         if (savedInstanceState == null) {
@@ -165,6 +180,49 @@ public class MainActivity extends BaseActivity implements LocationListener,
             }
         });
 
+        // list adapter
+        MessageListAdapter baseAdapter = new MessageListAdapter(this, MessageDataManager.getInstance().getMessages());
+        mMessageListAdapter = new SwingRightInAnimationAdapter(baseAdapter);
+        mMessageListView.setAdapter(mMessageListAdapter);
+        mMessageListAdapter.setAbsListView(mMessageListView);
+
+        mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                MessageData message = MessageDataManager.getInstance().getMessages().get(position);
+                if (message != null && message.getLocation() != null && message.getLocation().getLongitude() != 0.0) {
+                    Toast.makeText(MainActivity.this, message.getLocation().getLatitude() +", "+ message.getLocation().getLongitude(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.gps_no_data, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // initialize drawer
+        initializeDrawer();
+
+        // initialize and connect to mqtt broker if needed
+        initializeMqttClient();
+
+        // location
+        initializeLocationClient();
+
+        // message receiver
+        mReceiver = new MessageReceiver();
+        mIntentFilter = new IntentFilter(Mqtt.RECEIVER_MESSAGE_RECEIVED);
+    }
+
+    private void initializeLocationClient() {
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(90);
+        mLocationRequest.setFastestInterval(30);
+        mLocationRequest.setSmallestDisplacement(10);
+        mLocationClient = new LocationClient(this, this, this);
+    }
+
+    private void initializeDrawer() {
         // drawer toogle (lollipop's hamburger to arrow)
         mDrawerToggle = new ActionBarDrawerToggle (
                 this,
@@ -191,39 +249,26 @@ public class MainActivity extends BaseActivity implements LocationListener,
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         getSupportActionBar().setTitle(getString(R.string.app_name) + ": #default");
 
-        // list adapter
-        MessageListAdapter baseAdapter = new MessageListAdapter(this, MessageDataManager.getInstance().getMessages());
-        mMessageListAdapter = new SwingRightInAnimationAdapter(baseAdapter);
-        mMessageListView.setAdapter(mMessageListAdapter);
-        mMessageListAdapter.setAbsListView(mMessageListView);
+        mDownloadedTextView = (TextView) findViewById(R.id.drawer_downloaded);
+        mUploadedTextView = (TextView) findViewById(R.id.drawer_uploaded);
 
-        mMessageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+        mTrafficUpdateRunnable = new Runnable() {
 
-                MessageData message = MessageDataManager.getInstance().getMessages().get(position);
-                if (message != null && message.getLocation() != null && message.getLocation().getLongitude() != 0.0) {
-                    Toast.makeText(MainActivity.this, message.getLocation().getLatitude() +", "+ message.getLocation().getLongitude(), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, R.string.gps_no_data, Toast.LENGTH_SHORT).show();
+            @Override
+            public void run() {
+                updateTraffic();
+                if (mTrafficUpdateHandler != null) {
+                    mTrafficUpdateHandler.postDelayed(this, TRAFFIC_UPDATE_INTERVAL);
                 }
             }
-        });
+        };
+        mTrafficUpdateHandler = new Handler();
+        mTrafficUpdateHandler.post(mTrafficUpdateRunnable);
+    }
 
-        // message receiver
-        mReceiver = new MessageReceiver();
-        mIntentFilter = new IntentFilter(Mqtt.RECEIVER_MESSAGE_RECEIVED);
-
-        // initialize and connect to mqtt broker if needed
-        initializeMqttClient();
-
-        // location
-        mLocationRequest = LocationRequest.create();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(90);
-        mLocationRequest.setFastestInterval(30);
-        mLocationRequest.setSmallestDisplacement(10);
-        mLocationClient = new LocationClient(this, this, this);
+    private void updateTraffic() {
+        mDownloadedTextView.setText(StringHelper.humanReadableByteCount(mStats.getUidRxBytes(app.getApplicationInfo().uid) - app.getDownloadedAtStart(), false));
+        mUploadedTextView.setText(StringHelper.humanReadableByteCount(mStats.getUidTxBytes(app.getApplicationInfo().uid) - app.getUploadedAtStart(), false));
     }
 
     private void initializeMqttClient() {
@@ -283,6 +328,7 @@ public class MainActivity extends BaseActivity implements LocationListener,
     @Override
     protected void onResume() {
         super.onResume();
+        mTrafficUpdateHandler.post(mTrafficUpdateRunnable);
         mLocationClient.connect();
         mMessageListAdapter.notifyDataSetChanged();
         mClient.registerResources(this);
@@ -291,8 +337,9 @@ public class MainActivity extends BaseActivity implements LocationListener,
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
+        mTrafficUpdateHandler.removeCallbacks(mTrafficUpdateRunnable);
         mLocationClient.disconnect();
         unregisterReceiver(mReceiver);
     }
@@ -300,7 +347,9 @@ public class MainActivity extends BaseActivity implements LocationListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mClient.unregisterResources();
+        if (mClient != null && mClient.isConnected()) {
+            mClient.unregisterResources();
+        }
     }
 
     @Override
@@ -366,8 +415,6 @@ public class MainActivity extends BaseActivity implements LocationListener,
     public void newMessageOnClick(View view) {
         Anim.showViewWithAnimation(this, mMessageInputLayout, R.anim.push_up_in);
         Anim.hideViewWithAnimation(this, mNewMessageButton, R.anim.abc_fade_out);
-        focusOnNewestMessage();
-        mMessageListAdapter.notifyDataSetChanged();
     }
 
     public void focusOnNewestMessage() {
@@ -435,7 +482,14 @@ public class MainActivity extends BaseActivity implements LocationListener,
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(Mqtt.RECEIVER_MESSAGE_RECEIVED)) {
-                mMessageListAdapter.notifyDataSetChanged();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMessageListAdapter.notifyDataSetChanged();
+                        focusOnNewestMessage();
+                    }
+                }, 500);
             }
         }
     }

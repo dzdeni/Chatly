@@ -25,7 +25,7 @@ public class MessageDataManager {
         messages = new ArrayList<MessageData>();
     }
 
-    public static void add(MessageData message) {
+    public static synchronized void add(MessageData message) {
         instance.messages.add(message);
     }
 
