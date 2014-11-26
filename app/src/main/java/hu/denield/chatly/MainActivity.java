@@ -293,7 +293,7 @@ public class MainActivity extends BaseActivity implements LocationListener,
     @Override
     protected void onPause() {
         super.onPause();
-        mLocationClient.connect();
+        mLocationClient.disconnect();
         unregisterReceiver(mReceiver);
     }
 
