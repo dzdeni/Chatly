@@ -10,6 +10,11 @@ import hu.denield.chatly.data.MessageData;
 import hu.denield.chatly.data.MessageDataManager;
 import hu.denield.chatly.util.Notify;
 
+/**
+ * A broadcast receiver that receives the MQTT message,
+ * update the messages with its data and notify the user
+ * about it.
+ */
 public class MessageReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

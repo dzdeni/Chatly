@@ -16,6 +16,9 @@ import hu.denield.chatly.R;
 import hu.denield.chatly.data.MessageData;
 import hu.denield.chatly.util.Time;
 
+/**
+ * A list adapter for messages.
+ */
 public class MessageListAdapter extends BaseAdapter {
     private List<MessageData> messages;
     private Context context;

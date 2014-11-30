@@ -51,6 +51,9 @@ import hu.denield.chatly.mqtt.MqttCallbackHandler;
 import hu.denield.chatly.util.Anim;
 import hu.denield.chatly.util.StringHelper;
 
+/**
+ * The entry point of the application.
+ */
 public class MainActivity extends BaseActivity implements LocationListener,
                                                           GooglePlayServicesClient.ConnectionCallbacks,
                                                           GooglePlayServicesClient.OnConnectionFailedListener {
@@ -213,6 +216,32 @@ public class MainActivity extends BaseActivity implements LocationListener,
         mIntentFilter = new IntentFilter(Mqtt.RECEIVER_MESSAGE_RECEIVED);
     }
 
+    /**
+     * Initialize the Paho's MQTT Client.
+     */
+
+    private void initializeMqttClient() {
+        // The basic client information
+        String clientId =  MqttClient.generateClientId();
+        String uri = getString(R.string.mqtt_broker_protocoll);
+        String server = getString(R.string.mqtt_broker_url);
+        String port = getString(R.string.mqtt_broker_port);
+        uri = new StringBuilder(uri)
+                .append(server)
+                .append(":")
+                .append(port)
+                .toString();
+
+        try {
+            mClient = AndroidClient.getInstance(this, uri, clientId);
+        } catch (MqttException e) {
+            Log.e(LogTag.ERROR, e.getStackTrace().toString());
+        }
+    }
+
+    /**
+     * Initializes the Location API.
+     */
     private void initializeLocationClient() {
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -222,6 +251,9 @@ public class MainActivity extends BaseActivity implements LocationListener,
         mLocationClient = new LocationClient(this, this, this);
     }
 
+    /**
+     * Initialize the Navigation Drawer.
+     */
     private void initializeDrawer() {
         // drawer toogle (lollipop's hamburger to arrow)
         mDrawerToggle = new ActionBarDrawerToggle (
@@ -266,28 +298,12 @@ public class MainActivity extends BaseActivity implements LocationListener,
         mTrafficUpdateHandler.post(mTrafficUpdateRunnable);
     }
 
+    /**
+     * Updates traffic data in the navigation drawer.
+     */
     private void updateTraffic() {
         mDownloadedTextView.setText(": "+StringHelper.humanReadableByteCount(mStats.getUidRxBytes(app.getApplicationInfo().uid) - app.getDownloadedAtStart(), false));
         mUploadedTextView.setText(": "+StringHelper.humanReadableByteCount(mStats.getUidTxBytes(app.getApplicationInfo().uid) - app.getUploadedAtStart(), false));
-    }
-
-    private void initializeMqttClient() {
-        // The basic client information
-        String clientId =  MqttClient.generateClientId();
-        String uri = getString(R.string.mqtt_broker_protocoll);
-        String server = getString(R.string.mqtt_broker_url);
-        String port = getString(R.string.mqtt_broker_port);
-        uri = new StringBuilder(uri)
-                .append(server)
-                .append(":")
-                .append(port)
-                .toString();
-
-        try {
-            mClient = AndroidClient.getInstance(this, uri, clientId);
-        } catch (MqttException e) {
-            Log.e(LogTag.ERROR, e.getStackTrace().toString());
-        }
     }
 
     @Override
@@ -417,6 +433,10 @@ public class MainActivity extends BaseActivity implements LocationListener,
         Anim.hideViewWithAnimation(this, mNewMessageButton, R.anim.abc_fade_out);
     }
 
+    /**
+     * Focuses the listview which contains the messages
+     * to the newest message.
+     */
     public void focusOnNewestMessage() {
         mMessageListView.setSelection(mMessageListView.getCount() - 1);
     }
@@ -442,6 +462,13 @@ public class MainActivity extends BaseActivity implements LocationListener,
         }
     }
 
+    /**
+     * Creates a Protocol Buffers Message object
+     * to send via MQTT.
+     * @param username The username.
+     * @param message The message.
+     * @return The encrypted message data.
+     */
     private MessageProto.Message createMessage(String username, String message) {
         MessageProto.Message.Builder builder = MessageProto.Message.newBuilder()
                 .setName(username)
@@ -494,10 +521,17 @@ public class MainActivity extends BaseActivity implements LocationListener,
         }
     }
 
+    /**
+     * Checks if the username and password are valid.
+     *
+     * @param username The username.
+     * @param password The password.
+     * @return true, if the data is valid, false otherwise.
+     */
     public boolean validateUser(String username, String password) {
         Intent loginIntent = new Intent(this, LoginActivity.class);
         if (username != null && password != null) {
-            if (username.length() > 3) {
+            if (username.length() >= 3 && password.length() >= 3) {
                 return true;
             }
             loginIntent.putExtra(Extras.ERROR, getString(R.string.login_wrong_username_or_password));

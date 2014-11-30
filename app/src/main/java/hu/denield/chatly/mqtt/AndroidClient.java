@@ -6,6 +6,9 @@ import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+/**
+ * A simple wrapper for the Paho's MqttAndroidClient
+ */
 public class AndroidClient {
 
     private static MqttAndroidClient instance;

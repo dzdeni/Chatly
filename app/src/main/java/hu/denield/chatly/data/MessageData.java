@@ -4,6 +4,11 @@ import android.location.Location;
 
 import java.io.Serializable;
 
+/**
+ * Messages stored as an object of this class.
+ * After creation, there is no chance to modify
+ * its data.
+ */
 public class MessageData implements Serializable {
     private long time;
     private String username;
@@ -31,9 +36,5 @@ public class MessageData implements Serializable {
 
     public Location getLocation() {
         return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
     }
 }

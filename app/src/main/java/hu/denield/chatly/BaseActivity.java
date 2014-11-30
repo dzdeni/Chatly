@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
+/**
+ * The base activity which contains the toolbar.
+ * Every other activity should extend this class.
+ */
 public abstract class BaseActivity extends ActionBarActivity {
     private Toolbar mToolbar;
 

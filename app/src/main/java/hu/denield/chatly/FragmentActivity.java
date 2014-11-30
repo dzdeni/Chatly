@@ -10,6 +10,11 @@ import hu.denield.chatly.fragment.SettingsFragment;
 
 import static hu.denield.chatly.constant.Fragments.*;
 
+/**
+ * The activity that handles the fragments.
+ * There is no need to use this yet, it will
+ * make sense in a future version.
+ */
 public class FragmentActivity extends BaseActivity {
     private final static String FRAGMENT = "fragment";
 

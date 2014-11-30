@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * A singleton DataManager for message handling.
+ */
 public class MessageDataManager {
 
     private static MessageDataManager instance;

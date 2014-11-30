@@ -11,6 +11,9 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import hu.denield.chatly.constant.Mqtt;
 import hu.denield.chatly.data.MessageProto;
 
+/**
+ * Handles the callbacks of the AndroidMqttClient
+ */
 public class MqttCallbackHandler implements MqttCallback {
 
     private Context context;
@@ -24,6 +27,12 @@ public class MqttCallbackHandler implements MqttCallback {
         // do nothing
     }
 
+    /**
+     * When a new mqtt message arrive at a topic we subscribed, it will send a broadcast with its data.
+     * @param topic The name of the topic.
+     * @param mqttMessage The MQTT message.
+     * @throws Exception
+     */
     @Override
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
         MessageProto.Message parsedMessage;

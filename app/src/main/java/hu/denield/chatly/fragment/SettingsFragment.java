@@ -10,6 +10,9 @@ import android.util.Log;
 import hu.denield.chatly.Chatly;
 import hu.denield.chatly.R;
 
+/**
+ * A PreferenceFragment which loads the settings.
+ */
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private SharedPreferences.Editor mEditor;
