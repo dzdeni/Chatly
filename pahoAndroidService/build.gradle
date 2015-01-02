@@ -5,15 +5,14 @@ android {
     buildToolsVersion "21.1.0"
 
     defaultConfig {
-        applicationId "org.eclipse.paho.android.service"
         minSdkVersion 9
         targetSdkVersion 19
     }
 
     buildTypes {
         release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
