@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Chatly</string>
+    <string name="app_name">Talkly</string>
     <string name="hello_world">Hello world!</string>
 
     <!-- LoginActivity -->
@@ -25,9 +25,9 @@
 
     <!-- About -->
     <string name="title_activity_about">About</string>
-    <string name="about_whatisthis">Chatly - The Messenger</string>
-    <string name="about_createdfor">Android Course Project</string>
-    <string name="about_year">2014</string>
+    <string name="about_whatisthis">Talkly - The walkie-talkie </string>
+    <string name="about_createdfor">BA Thesis Project</string>
+    <string name="about_year">2014-2015</string>
 
     <!-- Main -->
     <string name="chat_message_input_hint">Write a message</string>

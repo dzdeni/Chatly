@@ -25,73 +25,28 @@
                 android:layout_height="match_parent"
                 android:id="@+id/chat_layout">
 
-                <RelativeLayout
+                <com.skyfishjy.library.RippleBackground
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/chat_input_layout"
-                    >
+                    android:id="@+id/content"
+                    app:rb_color="#ffff3050"
+                    app:rb_radius="24dp"
+                    app:rb_rippleAmount="6"
+                    app:rb_duration="2000"
+                    app:rb_scale="6">
+                    <ImageButton
+                        android:background="@drawable/record_button"
+                        android:id="@+id/recordButton"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"/>
+                </com.skyfishjy.library.RippleBackground>
 
-                    <ListView
-                        android:id="@+id/listview_messages"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:transcriptMode="alwaysScroll"
-                        />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@id/chat_input_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_alignParentBottom="true"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_margin="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="{Username}"
-                        android:id="@+id/chat_username"
-                        android:layout_centerInParent="true"
-                        android:layout_alignParentLeft="true"/>
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:id="@+id/chat_message_input"
-                        android:layout_toLeftOf="@+id/chat_button_send"
-                        android:layout_toRightOf="@+id/chat_username"
-                        android:inputType="text"
-                        android:hint="@string/chat_message_input_hint"
-                        android:imeOptions="actionSend"/>
-
-                    <com.gc.materialdesign.views.ButtonRectangle
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chat_button_send"
-                        android:id="@+id/chat_button_send"
-                        android:onClick="sendButtonOnClick"
-                        android:layout_marginLeft="10dp"
-                        android:layout_alignParentRight="true"
-                        android:background="@color/background" />
-
-                </RelativeLayout>
 
             </RelativeLayout>
-
-            <com.gc.materialdesign.views.ButtonFloat
-                android:id="@+id/chat_button_new_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="24dp"
-                android:layout_gravity="bottom|right"
-                android:background="@color/background"
-                materialdesign:animate="false"
-                materialdesign:iconFloat="@drawable/ic_action_new"
-                android:onClick="newMessageOnClick"/>
 
         </FrameLayout>
 
